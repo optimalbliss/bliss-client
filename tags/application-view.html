@@ -1,0 +1,81 @@
+
+<application-view>
+	<div>
+		<aside class="mdc-drawer mdc-drawer--modal">
+		 <div class="mdc-drawer__content">
+			<div class="mdc-list-group">
+			  <h3 if={false} class="mdc-list-group__subheader">Sections</h3>
+			  <ul class="mdc-list">
+			     <a class="mdc-list-item" data-link="schedule" onclick="{clicked}">
+			       <i class="material-icons mdc-list-item__graphic" aria-hidden="true">stars</i>
+			       <span class="mdc-list-item__text">Schedule</span>
+			     </a>
+			     <a class="mdc-list-item" data-link="events" onclick="{clicked}">
+			       <i class="material-icons mdc-list-item__graphic" aria-hidden="true">stars</i>
+			       <span class="mdc-list-item__text">Events</span>
+			     </a>
+			     <a class="mdc-list-item mdc-list-item--activated" aria-selected="true" data-link="sources" onclick="{clicked}">
+			       <i class="material-icons mdc-list-item__graphic" aria-hidden="true">stars</i>
+			       <span class="mdc-list-item__text">Sources</span>
+			     </a>
+			     <a class="mdc-list-item" data-link="virtual-list" onclick="{clicked}">
+			       <i class="material-icons mdc-list-item__graphic" aria-hidden="true">stars</i>
+			       <span class="mdc-list-item__text">Virtual List</span>
+			     </a>
+			     <a class="mdc-list-item" data-link="test" onclick="{clicked}">
+			       <i class="material-icons mdc-list-item__graphic" aria-hidden="true">stars</i>
+			       <span class="mdc-list-item__text">Tests</span>
+			     </a>
+			  </ul>
+			</div>
+		 </div>
+		</aside>
+		<div class="mdc-drawer-scrim"></div>
+		<div class="mdc-drawer-app-content">
+			<div data-is="{page}" id="{id}"></div>
+		</div>
+		<div class="mdc-snackbar">
+			<div class="mdc-snackbar__surface">
+				<div class="mdc-snackbar__label" role="status" aria-live="polite">
+					Looking for optimal bliss...
+				</div>
+				<div class="mdc-snackbar__actions">
+					<button type="button" class="mdc-button mdc-snackbar__action">Approve</button>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<script>
+		
+		var self = this;
+		this.on('before-mount', function() {
+			this.page = 'main-page';
+			this.id = null;
+			route(function(collection, id, action) {
+				if (collection == '') {
+					collection = 'main';
+				}
+				var page = collection + '-page';
+				self.page = page;
+				self.id = id;
+				self.update();
+			});
+			route.start(true);
+		});
+		
+		this.on('mount', function() {
+			window.drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+			const snackbar = new mdc.snackbar.MDCSnackbar(document.querySelector('.mdc-snackbar'));
+			snackbar.open();
+		});
+		
+		clicked(event) {
+			var link = event.target.dataset.link;
+			window.location.href = ['http:/', window.location.host, '#', link,''].join('/');
+			window.drawer.open = false;
+		}
+		
+	</script>
+	
+</application-view>

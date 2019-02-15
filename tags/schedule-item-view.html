@@ -1,0 +1,36 @@
+
+<more-view>
+	<div>
+		<div class="more">
+			<div class="flex-container" style="height:inherit;">
+				<div class="flex-row" onclick={find}>
+					<div class="flex-child">Find</div>
+					<div class="flex-child" style="text-align:right;"><span class="material-icons">keyboard_arrow_down</span></div>
+				</div>
+			</div>
+		</div>
+		<div class="more-items">
+			<div each={item in this.items}>{item}</div>
+		</div>
+	</div>
+	
+	<script>
+		
+		this.on('mount', function() {
+			console.log('more-view mounted');
+			this.items = [];
+		}.bind(this));
+		
+		find() {
+			if (this.items.length === 0) {
+				this.items.push('item');
+				this.items.push('item');
+				this.items.push('item');
+			} else {
+				this.items.splice(0, this.items.length);
+			}
+			this.update();
+		}
+
+	</script>
+</more-view>

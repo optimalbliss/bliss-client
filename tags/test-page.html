@@ -1,0 +1,44 @@
+
+<test-page>
+	
+	<header class="mdc-top-app-bar app-bar" id="test-app-bar">
+		<div class="mdc-top-app-bar__row">
+			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+				<a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+				<span class="mdc-top-app-bar__title">Tests</span>
+			</section>
+		</div>
+	</header>
+	<main class="main-content" id="test-main-content">
+		<div class="mdc-top-app-bar--fixed-adjust">
+			<div class="mdc-layout-grid">
+				<div class="mdc-layout-grid__inner">
+					<div class="mdc-layout-grid__cell">
+						<basic-card></basic-card>
+					</div>
+					<div class="mdc-layout-grid__cell">
+						<basic-card></basic-card>
+					</div>
+					<div class="mdc-layout-grid__cell">
+						<basic-card></basic-card>
+					</div>
+					<div class="mdc-layout-grid__cell">
+						<basic-card></basic-card>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+	<script>
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('test-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('test-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+	</script>
+	
+</test-page>

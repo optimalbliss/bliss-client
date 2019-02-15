@@ -1,0 +1,20 @@
+
+<events-item-page>
+
+	<script>
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('events-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('events-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		back(event) {
+			window.history.back();
+		}
+	
+	</script>
+	
+</events-item-page>

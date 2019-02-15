@@ -1,0 +1,33 @@
+
+<infinite-list>
+	
+	Infinte list
+	<div style="height:100000px;" onscroll={scrolled}>
+		<virtual each="{woot in this.woots}">
+			<div>{woot}</div>
+		</virtual>
+	</div>
+	
+	<script>
+		
+		this.on('before-mount', function() {
+			this.woots = [];
+			this.magic = 'magic';
+			for (var i = 0; i < 10; i++) {
+				this.woots.push(i);
+			}
+			
+			window.addEventListener('scroll', function(event) {
+				console.log('event: ' + event);
+			});
+			
+		}.bind(this));
+		
+		scrolled(event) {
+			
+			console.log('scrolled: ' + event);
+		}
+		
+	</script>
+	
+</infinite-list>

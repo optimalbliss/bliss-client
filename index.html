@@ -1,0 +1,57 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>Material</title>
+		<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css" />
+		<link rel="stylesheet" href="node_modules/material-design-icons/iconfont/material-icons.css" />
+		<script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+		<script src="node_modules/hyperlist/dist/hyperlist.js"></script>
+		<script src="lib/bliss.js"></script>
+		<script src="src/Class.js"></script>
+		<script src="src/Broadcast.js"></script>
+		<script src="src/Application.js"></script>
+		<style>
+			html, body {
+				margin-top:0px;
+				margin-left:0px;
+				padding-top:0px;
+				padding-left:0px;
+			}
+		</style>
+  </head>
+  <body class="mdc-typography">
+  		<application-view></application-view>
+		<script type="text/javascript" src="lib/riot-compiler.js"></script>
+		<script type="text/javascript" src="node_modules/riot-subtag/lib/subtag.js"></script>
+		<script type="text/javascript" src="lib/riot-route-tag.js"></script>
+		<script type="riot/tag" src="tags/application-view.html"></script>
+		<script type="riot/tag" src="tags/main-page.html"></script>
+		<script type="riot/tag" src="tags/sources-page.html"></script>
+		<script type="riot/tag" src="tags/sources-item-page.html"></script>
+		<script type="riot/tag" src="tags/events-page.html"></script>
+		<script type="riot/tag" src="tags/schedule-page.html"></script>
+		<script type="riot/tag" src="tags/schedule-list-view.html"></script>
+		<script type="riot/tag" src="tags/schedule-days-view.html"></script>
+		<script type="riot/tag" src="tags/schedule-day-view.html"></script>
+		<script type="riot/tag" src="tags/schedule-item-view.html"></script>
+		<script type="riot/tag" src="tags/schedule-more-view.html"></script>
+		<script type="riot/tag" src="tags/schedule-item-page.html"></script>
+		<script type="riot/tag" src="tags/test-page.html"></script>
+		<script type="riot/tag" src="tags/virtual-list-page.html"></script>
+		<script type="riot/tag" src="tags/hyper-list.html"></script>
+		<script type="riot/tag" src="tags/infinite-list.html"></script>
+		<script type="riot/tag" src="tags/infinite-item.html"></script>
+		<script type="riot/tag" src="tags/basic-card.html"></script>
+		<script type="riot/tag" src="tags/basic-card-two.html"></script>
+		<script>
+			var system = null;
+			var loader = null;
+			window.dateFns = bliss.dateFns;
+			window.mdc.autoInit();
+			console.log('riot.render: ' + riot.render);
+			riot.mount('application-view', {});
+			var application = new Application();
+		</script>
+  </body>
+</html>

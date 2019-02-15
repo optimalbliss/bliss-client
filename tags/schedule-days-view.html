@@ -1,0 +1,25 @@
+
+<schedule-days-view>
+	
+	<virtual each="{date in this.dates}">
+		<schedule-day-view date="{date}"></schedule-day-view>
+	</virtual>
+
+	<script>
+		
+		this.on('before-mount', function() {
+			this.dates = [];
+		}.bind(this));
+		
+		this.on('mount', function() {
+			var date = new Date();
+			if (false) date = new Date(2019, 0, 1);
+			this.dates = dateFns.eachDayOfInterval({
+				start: date,
+				end: dateFns.addDays(date, 30),
+			});
+			this.update();
+		}.bind(this));
+		
+	</script>
+</schedule-days-view>

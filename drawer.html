@@ -1,0 +1,64 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+		<title>Material Drawer</title>
+		<link rel="stylesheet" href="node_modules/material-components-web/dist/material-components-web.css" />
+		<link rel="stylesheet" href="node_modules/material-design-icons/iconfont/material-icons.css" />
+		<script src="node_modules/material-components-web/dist/material-components-web.js"></script>
+		<style>
+			html, body {
+				margin-top:0px;
+				margin-left:0px;
+				padding-top:0px;
+				padding-left:0px;
+			}
+		</style>
+  </head>
+  <body class="mdc-typography">
+	  <aside class="mdc-drawer mdc-drawer--modal">
+	    <div class="mdc-drawer__content">
+	      <div class="mdc-list">
+	        <a class="mdc-list-item mdc-list-item--activated" href="#" aria-selected="true">
+	          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">inbox</i>
+	          <span class="mdc-list-item__text">Sources</span>
+	        </a>
+	        <a class="mdc-list-item" href="#">
+	          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">send</i>
+	          <span class="mdc-list-item__text">Events</span>
+	        </a>
+	        <a class="mdc-list-item" href="#">
+	          <i class="material-icons mdc-list-item__graphic" aria-hidden="true">drafts</i>
+	          <span class="mdc-list-item__text">Schedule</span>
+	        </a>
+	      </div>
+	    </div>
+	  </aside>
+		
+		<div class="mdc-drawer-scrim"></div>
+		<div class="mdc-drawer-app-content">
+			<header class="mdc-top-app-bar app-bar" id="app-bar">
+				<div class="mdc-top-app-bar__row">
+					<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+						<a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+						<span class="mdc-top-app-bar__title">Modal Drawer</span>
+					</section>
+				</div>
+			</header>
+			<main class="main-content" id="main-content">
+				<div class="mdc-top-app-bar--fixed-adjust">
+					App Content
+				</div>
+			</main>
+		</div>
+		<script>
+			window.mdc.autoInit();
+			const drawer = mdc.drawer.MDCDrawer.attachTo(document.querySelector('.mdc-drawer'));
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				drawer.open = !drawer.open;
+			});
+		</script>
+  </body>
+</html>

@@ -1,0 +1,100 @@
+
+<main-page>
+	
+	<div>
+	<header class="mdc-top-app-bar app-bar" id="main-app-bar">
+		<div class="mdc-top-app-bar__row">
+			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+				<a href="#" class="demo-menu material-icons mdc-top-app-bar__navigation-icon">menu</a>
+			<span class="mdc-top-app-bar__title">Main</span>
+			</section>
+			<section id="iconSection" class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+				<a href="#" id="right-item" class="material-icons mdc-top-app-bar__action-item" aria-label="Download" alt="Download">settings</a>
+			</section>
+		</div>
+	</header>
+	
+    <main id="main-main-content">
+      <div id="content-main" class="mdc-top-app-bar--fixed-adjust">
+			<div class="mdc-tab-bar" role="tablist" data-mdc-auto-init="MDCTabBar">
+			  <div class="mdc-tab-scroller">
+			    <div class="mdc-tab-scroller__scroll-area">
+			      <div class="mdc-tab-scroller__scroll-content">
+                <button class="mdc-tab mdc-tab--active" role="tab" aria-selected="true" tabindex="0">
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__text-label">Sources</span>
+                  </span>
+                  <span class="mdc-tab-indicator mdc-tab-indicator--active">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1">
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__text-label">Events</span>
+                  </span>
+                  <span class="mdc-tab-indicator">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
+                <button class="mdc-tab" role="tab" aria-selected="false" tabindex="-1">
+                  <span class="mdc-tab__content">
+                    <span class="mdc-tab__text-label">Schedule</span>
+                  </span>
+                  <span class="mdc-tab-indicator">
+                    <span class="mdc-tab-indicator__content mdc-tab-indicator__content--underline"></span>
+                  </span>
+                  <span class="mdc-tab__ripple"></span>
+                </button>
+			      </div>
+			    </div>
+			  </div>
+        <ul class="mdc-list demo-list" id="trailing-checkbox-list" aria-orientation="vertical">
+          <li class="mdc-list-item checkbox-list-ripple-surface" tabindex="0" data-link="sources" onclick="{advance}">
+				<span class="mdc-list-item__text">Sources</span>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+          </li>
+			 <li role="separator" class="mdc-list-divider"></li>
+          <li class="mdc-list-item checkbox-list-ripple-surface" tabindex="0" data-link="events" onclick="{advance}">
+				<span class="mdc-list-item__text">Events</span>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+          </li>
+			 <li role="separator" class="mdc-list-divider"></li>
+          <li class="mdc-list-item checkbox-list-ripple-surface" tabindex="0" data-link="schedule" onclick="{advance}">
+				<span class="mdc-list-item__text">Schedule</span>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+          </li>
+			 <li role="separator" class="mdc-list-divider"></li>
+          <li class="mdc-list-item checkbox-list-ripple-surface" tabindex="0" data-link="test" onclick="{advance}">
+				<span class="mdc-list-item__text">Virtual List</span>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+          </li>
+			 <li role="separator" class="mdc-list-divider"></li>
+        </ul>
+			  
+			</div>
+      </div>
+    </main>
+	</div>
+	
+	<script>
+		
+		this.on('mount', function() {
+			const tabBar = new mdc.tabBar.MDCTabBar(document.querySelector('.mdc-tab-bar'));
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('main-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('main-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		advance(event) {
+			
+			var link = event.target.dataset.link || event.target.parentElement.dataset.link;
+			window.location.href = ['http:/', window.location.host, '#', link,''].join('/');
+		}
+		
+	</script>
+	
+</main-page>

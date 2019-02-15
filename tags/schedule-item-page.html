@@ -1,0 +1,36 @@
+
+<schedule-item-page>
+	
+	<div>
+    <header class="mdc-top-app-bar" id="schedule-app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+          <a href="#" class="material-icons mdc-top-app-bar__action-item" onclick={back}>arrow_back</a>
+          <span class="mdc-top-app-bar__title">Schedule Item</span>
+        </section>
+      </div>
+    </header>
+    <main id="schedule-main-content">
+      <div id="content-main" class="mdc-top-app-bar--fixed-adjust">
+      </div>
+    </main>
+	</div>
+	
+	<script>
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('schedule-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('schedule-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		back(event) {
+			window.history.back();
+		}
+		
+	</script>
+	
+</schedule-item-page>

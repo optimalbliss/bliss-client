@@ -1,0 +1,167 @@
+
+<schedule-list-view>
+	
+	<ul ref="container" class="mdc-list container" aria-orientation="vertical"></ul>
+	
+	<script>
+		
+		this.on('mount', function() {
+			
+			this.items = [];
+			var date = new Date();
+			this.dates = dateFns.eachDayOfInterval({
+				start: date,
+				end: dateFns.addDays(date, 1000),
+			});
+			this.dates.forEach(function(date) {
+				this.items.push(date);
+				var items = this.findItems(date);
+				items.forEach(function(item) {
+					this.items.push(item);
+				}.bind(this));
+			}.bind(this));
+			
+			var list = HyperList.create(this.refs.container, {
+				height: window.innerHeight,
+				itemHeight: 50,
+				total: this.items.length,
+				reverse: false,
+				scrollerTagName: 'div',
+				generate: function(row) {
+					var element = document.createElement('div');
+					var item = this.items[row];
+					if (item instanceof Date) {
+						var string = dateFns.format(date, 'EEEE') + ', ' + dateFns.format(date, 'MMMM do, yyyy')
+						element.innerHTML = `
+							<li class="mdc-list-item" role="checkbox" aria-checked="false">
+								<label class="mdc-list-item__text" style="font-weight:500;">${string}</label>
+							</li>
+							<li role="separator" class="mdc-list-divider"></li>
+						`;
+					} else {
+						if (item.begin) {
+							element.innerHTML = `
+								<li class="mdc-list-item" role="checkbox" aria-checked="false">
+									<span class="mdc-list-item__graphic">
+										<div class="mdc-checkbox">
+											<input type="checkbox" class="mdc-checkbox__native-control"/>
+											<div class="mdc-checkbox__background">
+												<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+													<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+												</svg>
+												<div class="mdc-checkbox__mixedmark"></div>
+											</div>
+										</div>
+									</span>
+									<label class="mdc-list-item__text">"${item.name}" begins at ${this.time(item.time)}.</label>
+									<span class="mdc-list-item__meta material-icons">chevron_right</span>
+								</li>
+								<li role="separator" class="mdc-list-divider"></li>
+							`;
+						} else {
+							element.innerHTML = `
+								<li class="mdc-list-item" role="checkbox" aria-checked="false">
+									<span class="mdc-list-item__graphic">
+										<div class="mdc-checkbox">
+											<input type="checkbox" class="mdc-checkbox__native-control"/>
+											<div class="mdc-checkbox__background">
+												<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+													<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+												</svg>
+												<div class="mdc-checkbox__mixedmark"></div>
+											</div>
+										</div>
+									</span>
+									<label class="mdc-list-item__text" style="width:100%;text-align:right;">"${item.name}" ends at ${this.time(item.time)}.</label>
+									<span class="mdc-list-item__meta material-icons">chevron_right</span>
+								</li>
+								<li role="separator" class="mdc-list-divider"></li>
+							`;
+						}
+					}
+					return element;
+				}.bind(this)
+			});
+			window.onresize = event => {
+				config.height = window.innerHeight;
+				list.refresh(container, config);
+			};
+		}.bind(this));
+		
+		findItems(date) {
+			
+			var result = system.test(date);
+			result.sort(
+				function(a, b) {
+					return a.data.time.begin.getTime() - b.data.time.begin.getTime();
+				}.bind(this)
+			);
+			var items = [];
+			result.forEach(
+				function(each) {
+					if (each.data.time.begin) {
+						items.push({
+							name: each.data.as,
+							time: each.data.time.begin,
+							begin: true,
+						});
+					}
+					if (each.data.time.end) {
+						items.push({
+							name: each.data.as,
+							time: each.data.time.end,
+							begin: false,
+						});
+					}
+				}.bind(this)
+			);
+			items.sort(
+				function(a, b) {
+					return a.time.getTime() - b.time.getTime();
+				}.bind(this)
+			);
+			return items;
+		}
+		
+		time(date) {
+			
+			var result = dateFns.format(date, 'hh:mmaaaaa') + 'm';
+			if (result.charAt(0) == '0') {
+				result = ' ' + result.substring(1);
+			}
+			return result;
+		}
+		
+	</script>
+	
+	<style>
+		@media
+		only screen and (-webkit-min-device-pixel-ratio : 1.5),
+		only screen and (min-device-pixel-ratio : 1.5) {
+		.container {
+			width: 100%;
+			height: 100%;
+			min-height: 100%;
+		}
+		}
+		
+		.vrow {
+			width: 100%;
+			height: 30px;
+			max-height: 30px;
+			color: #000;
+			margin: 0;
+			padding-top: 10px;
+			padding-bottom: 10px;
+		}
+		
+		.vrow p {
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			margin: 0;
+			color: #5b5b5b;
+		}
+	</style>
+	
+</schedule-list-view>

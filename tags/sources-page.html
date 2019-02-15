@@ -1,0 +1,72 @@
+
+<sources-page>
+	
+	<div>
+    <header class="mdc-top-app-bar" id="sources-app-bar">
+      <div class="mdc-top-app-bar__row">
+			<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+				<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+				<span class="mdc-top-app-bar__title">Sources</span>
+			</section>
+			<section id="iconSection" class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+				<a href="#" id="right-item" class="material-icons mdc-top-app-bar__action-item" aria-label="Download" alt="Download">settings</a>
+			</section>
+      </div>
+    </header>
+    <main id="sources-main-content">
+      <div id="content-main" class="mdc-top-app-bar--fixed-adjust">
+        <ul class="mdc-list demo-list" id="trailing-checkbox-list" aria-orientation="vertical" >
+			<li class="mdc-list-item" role="checkbox" aria-checked="true" each="{source in this.sources}" data-link="sources-item/{source}" onclick="{advance}">
+				<span class="mdc-list-item__graphic">
+					<div class="mdc-checkbox">
+						<input type="checkbox" class="mdc-checkbox__native-control" checked="true"/>
+						<div class="mdc-checkbox__background">
+							<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+								<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+							</svg>
+							<div class="mdc-checkbox__mixedmark"></div>
+						</div>
+					</div>
+				</span>
+				<label class="mdc-list-item__text" for="demo-list-checkbox-item-1">{source}</label>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+			</li>
+        </ul>
+      </div>
+    </main>
+	</div>
+	
+	<script>
+		
+		this.on('before-mount', function() {
+			this.sources = [];
+			application.sources.forEach(function(each) {
+				var object = each.split('/');
+				object = object.pop();
+				object = object.split('.');
+				object = object.shift();
+				this.sources.push(object);
+			}.bind(this));
+		});
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('sources-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('sources-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		advance(event) {
+			
+			var link = event.target.dataset.link || event.target.parentElement.dataset.link;
+			window.location.href = ['http:/', window.location.host, '#', link,''].join('/');
+		}
+		
+		back(event) {
+			window.history.back();
+		}
+		
+	</script>
+	
+</sources-page>

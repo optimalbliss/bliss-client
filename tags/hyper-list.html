@@ -1,0 +1,90 @@
+
+<hyper-list>
+	
+	<ul ref="container" class="container mdc-list" aria-orientation="vertical"></ul>
+	
+	<script>
+		
+		this.on('mount', function() {
+			
+			var list = HyperList.create(this.refs.container, {
+				height: window.innerHeight,
+				itemHeight: 50,
+				total: 100000,
+				reverse: false,
+				scrollerTagName: 'div',
+				generate: function(row) {
+					var element = document.createElement('div');
+					element.innerHTML = `
+						<li class="mdc-list-item" role="checkbox" aria-checked="false">
+							<span class="mdc-list-item__graphic">
+							<div class="mdc-checkbox">
+								<input type="checkbox" class="mdc-checkbox__native-control"/>
+								<div class="mdc-checkbox__background">
+									<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+										<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+									</svg>
+									<div class="mdc-checkbox__mixedmark"></div>
+								</div>
+							</div>
+							</span>
+							<label class="mdc-list-item__text" for="demo-list-checkbox-item-1">"Chapel" from 8:45am to 10:00am. "Chapel" from 8:45am to 10:00am.</label>
+							<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+						</li>
+						<li role="separator" class="mdc-list-divider"></li>
+					`;
+					return element;
+				}
+			});
+			window.onresize = event => {
+				config.height = window.innerHeight;
+				list.refresh(container, config);
+			};
+		}.bind(this));
+		
+	</script>
+	
+  <style>
+    body, html {
+      padding: 0;
+      margin: 0;
+      height: 100%;
+      width: 100%;
+      min-height: 100%;
+      min-width: 100%;
+      text-align: center;
+    }
+    body {
+      overflow: hidden;
+    }
+
+    @media
+    only screen and (-webkit-min-device-pixel-ratio : 1.5),
+    only screen and (min-device-pixel-ratio : 1.5) {
+      .container {
+        width: 100%;
+        height: 100%;
+        min-height: 100%;
+      }
+    }
+
+    .vrow {
+      width: 100%;
+      height: 30px;
+      max-height: 30px;
+      color: #000;
+      margin: 0;
+      padding-top: 10px;
+      padding-bottom: 10px;
+    }
+
+    .vrow p {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      margin: 0;
+      color: #5b5b5b;
+    }
+  </style>
+	
+</hyper-list>

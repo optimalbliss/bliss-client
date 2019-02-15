@@ -1,0 +1,47 @@
+
+<sources-item-page>
+	
+	<div>
+    <header class="mdc-top-app-bar" id="sources-item-app-bar">
+      <div class="mdc-top-app-bar__row">
+        <section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+          <a href="#" class="material-icons mdc-top-app-bar__action-item" onclick={back}>arrow_back</a>
+          <span class="mdc-top-app-bar__title">{opts.id}</span>
+        </section>
+      </div>
+    </header>
+    <main id="sources-item-main-content">
+      <div id="content-main" class="mdc-top-app-bar--fixed-adjust">
+      	<pre style="margin:10px;">{content}</pre>
+      </div>
+    </main>
+	</div>
+	
+	<script>
+		
+		this.on('before-mount', function() {
+			application.system.sources.forEach(function(each) {
+				if (each.id == opts.id) {
+					this.source = each;
+				}
+			}.bind(this));
+			if (this.source) {
+				this.content = this.source.content;
+			}
+		});
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('sources-item-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('sources-item-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		back(event) {
+			window.history.back();
+		}
+		
+	</script>
+	
+</sources-item-page>

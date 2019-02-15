@@ -1,0 +1,51 @@
+
+<schedule-page>
+	
+	<div>
+		<header class="mdc-top-app-bar" id="schedule-app-bar">
+			<div class="mdc-top-app-bar__row">
+				<section class="mdc-top-app-bar__section mdc-top-app-bar__section--align-start">
+					<a href="#" class="material-icons mdc-top-app-bar__navigation-icon">menu</a>
+					<span class="mdc-top-app-bar__title">Schedule</span>
+				</section>
+				<section id="iconSection" class="mdc-top-app-bar__section mdc-top-app-bar__section--align-end">
+					<a id="view-item" class="material-icons mdc-top-app-bar__action-item" aria-label="View" alt="View">view_list</a>
+					<a id="settings-item" class="material-icons mdc-top-app-bar__action-item" aria-label="Settings" alt="Settings">settings</a>
+				</section>
+			</div>
+		</header>
+		<main id="schedule-main-content">
+			<div id="content-main" class="mdc-top-app-bar--fixed-adjust">
+				<schedule-list-view></schedule-list-view>
+				<button class="mdc-fab" aria-label="Favorite">
+					<span class="mdc-fab__icon material-icons">add</span>
+				</button>
+			</div>
+		</main>
+	</div>
+	
+	<style>
+		.mdc-fab {
+		  position: fixed;
+		  bottom: 1rem;
+		  right: 1rem;
+		}
+	</style>
+	
+	<script>
+		
+		this.on('mount', function() {
+			const topAppBar = mdc.topAppBar.MDCTopAppBar.attachTo(document.getElementById('schedule-app-bar'));
+			topAppBar.setScrollTarget(document.getElementById('schedule-main-content'));
+			topAppBar.listen('MDCTopAppBar:nav', () => {
+				window.drawer.open = !window.drawer.open;
+			});
+		});
+		
+		back(event) {
+			window.history.back();
+		}
+		
+	</script>
+	
+</schedule-page>

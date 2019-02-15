@@ -1,0 +1,21 @@
+{
+  "name": "material",
+  "version": "1.0.0",
+  "main": "index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "UNLICENSED",
+  "dependencies": {
+    "hyperlist": "^1.0.0-beta",
+    "material-components-web": "^0.43.1",
+    "material-design-icons": "^3.0.1",
+    "riot-subtag": "^1.0.4"
+  },
+  "devDependencies": {},
+  "description": ""
+}

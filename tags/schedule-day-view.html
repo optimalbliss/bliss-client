@@ -1,0 +1,103 @@
+
+<schedule-day-view>
+	<li class="mdc-list-item" role="checkbox" aria-checked="false">
+		<label class="mdc-list-item__text" for="demo-list-checkbox-item-1">
+			<b>{dateFns.format(opts.date, 'EEEE')}, {dateFns.format(opts.date, 'MMMM do, yyyy')}</b>
+		</label>
+	</li>
+	<li role="separator" class="mdc-list-divider"></li>
+	<virtual each="{item in this.items}">
+		<virtual if="{item.begin}">
+			<li class="mdc-list-item" role="checkbox" aria-checked="false">
+				<span class="mdc-list-item__graphic">
+				<div class="mdc-checkbox">
+					<input type="checkbox" class="mdc-checkbox__native-control"/>
+					<div class="mdc-checkbox__background">
+						<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+							<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+						</svg>
+						<div class="mdc-checkbox__mixedmark"></div>
+					</div>
+				</div>
+				</span>
+				<label class="mdc-list-item__text" for="demo-list-checkbox-item-1">
+					"{item.name}" begins at {this.time(item.time)}.
+				</label>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+			</li>
+			<li role="separator" class="mdc-list-divider"></li>
+		</virtual>
+		<virtual if="{!item.begin}">
+			<li class="mdc-list-item" role="checkbox" aria-checked="false">
+				<span class="mdc-list-item__graphic">
+				<div class="mdc-checkbox">
+					<input type="checkbox" class="mdc-checkbox__native-control"/>
+					<div class="mdc-checkbox__background">
+						<svg class="mdc-checkbox__checkmark" viewBox="0 0 24 24">
+							<path class="mdc-checkbox__checkmark-path" fill="none" d="M1.73,12.91 8.1,19.28 22.79,4.59"/>
+						</svg>
+						<div class="mdc-checkbox__mixedmark"></div>
+					</div>
+				</div>
+				</span>
+				<label class="mdc-list-item__text" for="demo-list-checkbox-item-1">
+					"{item.name}" ends at {this.time(item.time)}.
+				</label>
+				<span class="mdc-list-item__meta material-icons" aria-hidden="true">chevron_right</span>
+			</li>
+			<li role="separator" class="mdc-list-divider"></li>
+		</virtual>
+	</virtual>
+	
+	<script>
+		
+		this.on('mount', function() {
+			var result = system.test(opts.date);
+			result.sort(
+				function(a, b) {
+					return a.data.time.begin.getTime() - b.data.time.begin.getTime();
+				}.bind(this)
+			);
+			this.items = [];
+			result.forEach(
+				function(each) {
+					if (each.data.time.begin) {
+						this.items.push({
+							name: each.data.as,
+							time: each.data.time.begin,
+							begin: true,
+						});
+					}
+					if (each.data.time.end) {
+						this.items.push({
+							name: each.data.as,
+							time: each.data.time.end,
+							begin: false,
+						});
+					}
+				}.bind(this)
+			);
+			this.items.sort(
+				function(a, b) {
+					return a.time.getTime() - b.time.getTime();
+				}.bind(this)
+			);
+			this.update();
+		}.bind(this));
+		
+		time(date) {
+			
+			var result = dateFns.format(date, 'hh:mmaaaaa') + 'm';
+			if (result.charAt(0) == '0') {
+				result = ' ' + result.substring(1);
+			}
+			return result;
+		}
+		
+		more() {
+			return true;
+		}
+		
+	</script>
+	
+</schedule-day-view>
