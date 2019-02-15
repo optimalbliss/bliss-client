@@ -32,16 +32,16 @@ Application = bliss.Class.extend({
 		} else {
 			console.log('running remotely');
 			this.sources = [
-				'http://127.0.0.1:8082/wiki/Worship.md',
-				'http://127.0.0.1:8082/wiki/Fun.md',
-				'http://127.0.0.1:8082/wiki/Hours.md',
-				'http://127.0.0.1:8082/wiki/Personal.md',
-				'http://127.0.0.1:8082/wiki/Live-Music.md',
-				'http://127.0.0.1:8082/wiki/Recovery.md',
-				'http://127.0.0.1:8082/wiki/Tech.md',
-				'http://127.0.0.1:8082/wiki/Program.md',
-				'http://127.0.0.1:8082/wiki/Scripture.md',
-				'http://127.0.0.1:8082/wiki/Cycling.md'
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Worship.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Fun.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Hours.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Personal.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Live-Music.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Recovery.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Tech.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Program.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Scripture.md?login=login&token=token',
+				'https://raw.githubusercontent.com/wiki/optimalbliss/bliss-data/Cycling.md?login=login&token=token'
 			];
 		}
 	},
