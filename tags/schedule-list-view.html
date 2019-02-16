@@ -31,7 +31,7 @@
 					var element = document.createElement('div');
 					var item = this.items[row];
 					if (item instanceof Date) {
-						var string = dateFns.format(date, 'EEEE') + ', ' + dateFns.format(date, 'MMMM do, yyyy')
+						var string = dateFns.format(item, 'EEEE') + ', ' + dateFns.format(item, 'MMMM do, yyyy')
 						element.innerHTML = `
 							<li class="mdc-list-item" role="checkbox" aria-checked="false">
 								<label class="mdc-list-item__text" style="font-weight:500;">${string}</label>
