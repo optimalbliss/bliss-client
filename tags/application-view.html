@@ -72,7 +72,7 @@
 		
 		clicked(event) {
 			var link = event.target.dataset.link;
-			window.location.href = ['http:/', window.location.host, '#', link,''].join('/');
+			window.location.href = ['http://', window.location.host + window.location.pathname, '#/', link, '/'].join('');
 			window.drawer.open = false;
 		}
 		

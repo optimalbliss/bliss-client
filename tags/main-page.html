@@ -92,7 +92,7 @@
 		advance(event) {
 			
 			var link = event.target.dataset.link || event.target.parentElement.dataset.link;
-			window.location.href = ['http:/', window.location.host, '#', link,''].join('/');
+			window.location.href = ['http://', window.location.host + window.location.pathname, '#/', link, '/'].join('');
 		}
 		
 	</script>
