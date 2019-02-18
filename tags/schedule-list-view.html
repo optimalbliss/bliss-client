@@ -21,7 +21,8 @@
 				}.bind(this));
 			}.bind(this));
 			
-			var list = HyperList.create(this.refs.container, {
+			var config = null;
+			var list = HyperList.create(this.refs.container, config = {
 				height: window.innerHeight,
 				itemHeight: 50,
 				total: this.items.length,
@@ -82,10 +83,10 @@
 					return element;
 				}.bind(this)
 			});
-			window.onresize = event => {
+			window.onresize = function(event) {
 				config.height = window.innerHeight;
-				list.refresh(container, config);
-			};
+				list.refresh(this.refs.container, config);
+			}.bind(this);
 		}.bind(this));
 		
 		findItems(date) {
